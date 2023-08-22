@@ -3,10 +3,10 @@
 
 using namespace std;
 
-vector < vector<int> > matrix;
-vector <vector <int>> matCalc;
+vector < vector<double> > matrix;
+vector <vector <double>> matCalc;
 
-int determinant;
+double determinant;
 bool flag = true;
 
 void recDet(int i, int n)
@@ -14,7 +14,8 @@ void recDet(int i, int n)
 
     if(i == 2*n-1) return;
     
-    int prod, col= i;
+    double prod;
+    int col= i;
     if(flag) 
     {
         prod = 1;
@@ -51,8 +52,8 @@ int main()
     cout<< "Enter the dimensions of the matrix: ";
     int n;
     cin >> n;
-    matrix.resize(n, vector<int> (n));
-    matCalc.resize(n, vector<int> (2*n));
+    matrix.resize(n, vector<double> (n));
+    matCalc.resize(n, vector<double> (2*n));
     cout << "Enter the input matrix:" << endl;
     for(int i=0; i<n; i++)
     {
