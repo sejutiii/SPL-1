@@ -12,7 +12,7 @@ bool flag = true;
 void recDet(int i, int n)
 {
 
-    if(i == 2*n) return;
+    if(i == 2*n-1) return;
     
     int prod, col= i;
     if(flag) 
@@ -38,7 +38,7 @@ void recDet(int i, int n)
 
     determinant += prod;
 
-    if(i == n && flag == true)
+    if(i == n-1 && flag == true)
     {
         flag = false;
         i= n-2;
