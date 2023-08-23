@@ -1,15 +1,20 @@
 #include<iostream>
 #include<vector>
+#include<math.h>
+#define EPS 10e-5
 
 using namespace std;
 
 vector < vector<double> > matrix;
 vector <vector <double>> matCalc;
+vector <vector <double> > inverseMat;
+vector <vector <double> > augmentedMatrix;
 
 double determinant;
 bool flag = true;
+int n; // n= dimension of the square matrix
 
-void recDet(int i, int n)
+void recDet(int i)
 {
 
     if(i == 2*n-1) return;
@@ -44,16 +49,22 @@ void recDet(int i, int n)
         flag = false;
         i= n-2;
     }
-    recDet(i+1, n);
+    recDet(i+1);
+}
+
+// calculates the inverse by Gauss Elimination
+void inverse()
+{
+    
 }
 
 int main()
 {
     cout<< "Enter the dimensions of the matrix: ";
-    int n;
     cin >> n;
     matrix.resize(n, vector<double> (n));
     matCalc.resize(n, vector<double> (2*n));
+    augmentedMatrix.resize(n, vector<double> (2*n));
     cout << "Enter the input matrix:" << endl;
     for(int i=0; i<n; i++)
     {
@@ -78,18 +89,20 @@ int main()
         }
     }
 
-    cout << "print the matrix:" << endl;
+    determinant=0;
+    inverse();
+
+    cout << "print the inverse matrix:" << endl;
     for(int i=0; i<n; i++)
     {
-        for(int j=0; j< 2*n ; j++)
+        for(int j=0; j< n ; j++)
         {
-            cout << matCalc[i][j] << " ";
+            cout << matrix[i][j] << " ";
         }
         cout << endl;
     }
 
-    determinant=0;
-    recDet(0, n);
+    // recDet(0);
 
     cout << "The determinant is " << determinant << endl; 
 }
