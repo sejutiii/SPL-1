@@ -76,10 +76,10 @@ double coefficientOfDetermination()
     for(int i=0; i<n; i++)
     {
         Syy += (y[i]- y_mean) * (y[i]- y_mean);
-        double residual= (x[i], y[i]);
-        SSR += residual*residual;
+        double pred= predictor(x[i]);
+        SSR += (y[i]- pred)* (y[i]- pred);
     }
-
+    
     R_sq = 1- (SSR/ Syy);
     return R_sq;
 }
@@ -87,7 +87,8 @@ double coefficientOfDetermination()
 void interpretationOfCOD()
 {
     double R_sq= coefficientOfDetermination();
-    cout << "The model can explain " << 100*R_sq << "% of the variation in the data";
+    cout << "The Co-efficient of determination is "<< R_sq << endl;
+    cout << "So, the model can explain " << 100*R_sq << "% of the variation in the data";
 }
 
 void getInput()
@@ -109,5 +110,5 @@ int main()
     getInput();
 
     cout << "Predicted value at 2060 = " << predictor(2060) << endl;
-
+    interpretationOfCOD();
 }
