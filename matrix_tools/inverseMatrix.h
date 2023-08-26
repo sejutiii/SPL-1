@@ -86,7 +86,7 @@ void printInverse()
         cout << "Cannot calculate inverse." << endl;
         return;
     }
-    cout << "Print the inverse matrix:" << endl;
+    cout << "The inverse matrix:" << endl;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             cout << inverseMat[i][j] << " ";

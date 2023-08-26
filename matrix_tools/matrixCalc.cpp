@@ -41,15 +41,16 @@ void matrixMultiplication(vector< vector<double> > A, vector< vector<double> > B
 
     mat_multiplicationOutput.resize(row_A, vector<double>(col_B));
 
-    double sum=0;
     for(int i=0; i<row_A; i++)
     {
-        for(int j=0; j<col_A; j++)
+        for(int j=0; j<col_B; j++)
         {
-            for(int k=0; k<col_B; k++)
+            double sum=0;
+            for(int k=0; k<col_A; k++)
             {
-
+                sum += A[i][k] * B[k][j];
             }
+            mat_multiplicationOutput[i][j]= sum;
         }
     }
 }
