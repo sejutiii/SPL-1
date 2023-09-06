@@ -3,12 +3,7 @@
 
 using namespace std;
 
-vector< vector<double> > matX;
-vector <vector<double>> matY;
-vector< vector<double> > mat_Xtranspose;
-vector< vector<double> > mat_multiplicationOutput;
-
-void transpose()
+void transpose(vector<vector<double>> &matX, vector<vector<double>> &mat_Xtranspose)
 {
     int row= matX.size();
     int col= matX[0].size();
@@ -27,7 +22,7 @@ void transpose()
     }
 }
 
-void matrixMultiplication(vector< vector<double> > A, vector< vector<double> > B)
+void matrixMultiplication(vector<vector<double>> &A, vector<vector<double>> &B, vector<vector<double>> &mat_multiplicationOutput)
 {
     int row_A, col_A, row_B, col_B;
     row_A= A.size();
@@ -44,8 +39,6 @@ void matrixMultiplication(vector< vector<double> > A, vector< vector<double> > B
 
     mat_multiplicationOutput.resize(row_A, vector<double>(col_B));
 
-    cout << row_A << " " << col_B << endl;
-
     for(int i=0; i<row_A; i++)
     {
        // cout << "it = " << i+1 << " "; // tbd;
@@ -60,6 +53,22 @@ void matrixMultiplication(vector< vector<double> > A, vector< vector<double> > B
            //cout <<  mat_multiplicationOutput[i][j] << " "; // tbd
         }
         //cout << endl;
+    }
+}
+
+void printMat(vector<vector<double>> &A)
+{
+    int row_A, col_A;
+    row_A= A.size();
+    col_A= A[0].size();
+
+    for(int i=0; i<row_A; i++)
+    {
+        for(int j=0; j<col_A; j++)
+        {
+            cout << A[i][j] <<  " ";
+        }
+        cout << endl;
     }
 }
 

@@ -6,7 +6,7 @@ using namespace std;
 
 int numRow, numColumn;
 
-void getInputMat()
+void getInputMat(vector< vector<double> > &matX, vector <vector<double>> &matY)
 {
     vector< vector<double> > dataset;
     vector<string> parameters;
@@ -32,6 +32,7 @@ void getInputMat()
     }
 
     dataset.resize(numRow,vector<double>(numColumn));
+
     matX.resize(numRow, vector<double> (numColumn));
     matY.resize(numRow, vector<double> (1));
 
@@ -77,41 +78,32 @@ void getInputMat()
 
 int main() 
 {
-    // cout << "Enter the dimensions of the matrix: ";
-    // cin >> n;
-
-    // vector< vector<double> > x;
-    // x.resize(n, vector<double>(n));
-
-    // cout << "Enter the input matrix:" << endl;
-    // for (int i = 0; i < n; i++) {
-    //     for (int j = 0; j < n; j++) {
-    //         cin >> x[i][j];
-    //     }
-    // }
-
-    // GetinverseMatrix(x);
-
-    // printInverse();
-
-    getInputMat();
-    transpose();
-    matrixMultiplication(mat_Xtranspose, matX);
+    vector< vector<double> > matX;
+    vector <vector<double>> matY;
+    vector< vector<double> > mat_Xtranspose;
+    vector< vector<double> > matZ;
+    vector< vector<double> > temp;
+    vector< vector<double> > Beta;
+    getInputMat(matX, matY);
+    transpose(matX, mat_Xtranspose);
+    matrixMultiplication(mat_Xtranspose, matX, matZ);
     n= mat_Xtranspose.size();
-    GetinverseMatrix(mat_multiplicationOutput);
-    //printInverse(mat_multiplicationOutput);
+    cout << "n= " << n << endl;
+    GetinverseMatrix(matZ);
+    //printMat(matZ);
+    //printInverse(matZ);
 
-    cout << mat_Xtranspose.size() << endl; 
-    matrixMultiplication(inverseMat, mat_Xtranspose);
-    matrixMultiplication(mat_multiplicationOutput, matY);
+    // cout << mat_Xtranspose.size() << endl; 
+    matrixMultiplication(inverseMat, mat_Xtranspose, temp);
+    matrixMultiplication(temp, matY, Beta);
 
     cout << endl << "beta= " << endl;
 
-    for(int i=0; i<mat_multiplicationOutput.size(); i++)
+    for(int i=0; i<Beta.size(); i++)
     {
-        for(int j=0; j<mat_multiplicationOutput[0].size(); j++)
+        for(int j=0; j<Beta[0].size(); j++)
         {
-            cout << mat_multiplicationOutput[i][j] << " ";
+            cout << Beta[i][j] << " ";
         }
         cout << endl ;
     }
