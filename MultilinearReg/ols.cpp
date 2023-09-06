@@ -76,6 +76,28 @@ void getInputMat(vector< vector<double> > &matX, vector <vector<double>> &matY)
 
 }
 
+double getZ(vector<vector<double>> &beta)
+{
+    vector<double> x;
+    double z= 0;
+    x.resize(numColumn);
+    cout << "Enter the values of x: " << endl;
+
+    x[0]= 1;
+    for(int i=1; i<numColumn; i++)
+    {
+        cin >> x[i];
+    }
+
+    for(int i=1; i<numColumn; i++)
+    {
+        z += (x[i]* beta[i][0]);
+    }
+
+    cout << "z= " << z;
+    return z;
+}
+
 int main() 
 {
     vector< vector<double> > matX;
@@ -107,6 +129,8 @@ int main()
         }
         cout << endl ;
     }
+
+    getZ(Beta);
 
     return 0;
 }
