@@ -79,8 +79,9 @@ void GetinverseMatrix(vector<vector<double>> x)
     }
 }
 
-void printInverse()
+void printInverse(vector<vector<double>> x)
 {
+    GetinverseMatrix(x);
     if(isSingular == true)
     {
         cout << "Cannot calculate inverse." << endl;
