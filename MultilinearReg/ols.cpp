@@ -108,28 +108,22 @@ int main()
     vector< vector<double> > Beta;
     getInputMat(matX, matY);
     transpose(matX, mat_Xtranspose);
+    //printMat(mat_Xtranspose);
     matrixMultiplication(mat_Xtranspose, matX, matZ);
-    n= mat_Xtranspose.size();
-    cout << "n= " << n << endl;
+    //n= mat_Xtranspose.size();
+   // cout << "n= " << n << endl;
     GetinverseMatrix(matZ);
-    //printMat(matZ);
     //printInverse(matZ);
+   // printMat(inverseMat);
 
     // cout << mat_Xtranspose.size() << endl; 
     matrixMultiplication(inverseMat, mat_Xtranspose, temp);
-    matrixMultiplication(temp, matY, Beta);
+    //printMat(temp);
+     matrixMultiplication(temp, matY, Beta);
 
     cout << endl << "beta= " << endl;
 
-    for(int i=0; i<Beta.size(); i++)
-    {
-        for(int j=0; j<Beta[0].size(); j++)
-        {
-            cout << Beta[i][j] << " ";
-        }
-        cout << endl ;
-    }
-
+    printMat(Beta);
     getZ(Beta);
 
     return 0;
