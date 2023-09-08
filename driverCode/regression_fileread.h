@@ -34,7 +34,7 @@ void readFile(vector< vector<double> > &dataset, vector<string> &strHeaders)
 
     if(strHeader == true)
     {
-        for(int i=0; i<2; i++)
+        for(int i=0; i<numColumn; i++)
         {
             char temp[50];
             fscanf(fp, "%s", temp);

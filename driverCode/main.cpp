@@ -1,6 +1,7 @@
 #include<iostream>
 #include"regression_fileread.h"
 #include"../Regression/simple_linear_reg.h"
+#include"../Regression/multiple_linear_reg.h"
 
 using namespace std;
 
@@ -42,7 +43,7 @@ void startTheProgram()
         simple_linear_regression(rows, columns, dataset, title);
         break;
         case 2:
-        cout << "MLR" << endl;
+        multilinear_regression(rows, columns, dataset, title);
         break;
         case 3:
         cout << "PR" << endl;
@@ -50,6 +51,5 @@ void startTheProgram()
         default:
         return;
     }
-
 }
 
