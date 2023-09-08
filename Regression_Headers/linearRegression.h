@@ -12,6 +12,9 @@ double sumXY, sumX, sumY, sumX_square, sumY_square, Syy, SSR;
 
 bool parametersCalculated = false;
 
+//bool strHeader= false;
+//vector<string> strHeaders; // If the columns have a title 
+
 void sumCalc()
 {
     int n= x.size();
@@ -49,6 +52,11 @@ void calcIntercept()
     calcSlope();
     intercept= y_mean - (slope* x_mean);
     parametersCalculated = true;
+}
+
+void trainingModel()
+{
+    calcIntercept();
 }
 
 double predictor(double xi)
@@ -91,24 +99,45 @@ void interpretationOfCOD()
     cout << "So, the model can explain " << 100*R_sq << "% of the variation in the data";
 }
 
-void getInput()
+void interpretationOfParameters()
 {
-    freopen("file.txt", "r", stdin);
-    int n;
-    cin>> n;
-    double xi, yi;
-    for(int i=0; i<n; i++)
+    cout << "The value of the co-efficient (slope) term is " << slope << " ";
+    cout << "and the value of the intercept term is " << intercept << endl;
+    // if(strHeader)
+    // {
+    //     cout << "For a unit change in " << strHeaders[0] << " the change in " << strHeaders[1] << " is " << slope << endl;
+    // }
+    //else 
+    
+    cout << "For a unit change in the independent variable the change in the dependent variable is " << slope << endl;
+    
+}
+
+void getInput(int rows, int columns, vector< vector<double> >dataset, vector<string>strHeaders)
+{
+   int xCol, yCol;
+    if(columns == 2)
     {
-        cin >> xi >> yi;
+        xCol= 0;
+        yCol= 1;
+    }
+    else
+    {
+        cout << "For linear regression- " << endl;
+        cout << "Enter the x column: " ;
+        cin >> xCol;
+        xCol--;
+        cout << "Enter the y column: ";
+        cin >> yCol;
+        yCol--;
+    }
+    
+    double xi, yi;
+    for(int i=0; i<rows; i++)
+    {
+        xi= dataset[i][xCol];
+        yi= dataset[i][yCol];
         x.push_back(xi);
         y.push_back(yi);
     }
-}
-
-int main()
-{
-    getInput();
-
-    cout << "Predicted value at 2060 = " << predictor(2060) << endl;
-    interpretationOfCOD();
 }
