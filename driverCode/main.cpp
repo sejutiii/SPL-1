@@ -2,6 +2,7 @@
 #include"regression_fileread.h"
 #include"../Regression/simple_linear_reg.h"
 #include"../Regression/multiple_linear_reg.h"
+#include"../Regression/polynomial_reg.h"
 
 using namespace std;
 
@@ -46,10 +47,11 @@ void startTheProgram()
         multilinear_regression(rows, columns, dataset, title);
         break;
         case 3:
-        cout << "PR" << endl;
+        polynomial_regression(rows, columns, dataset, title);
         break;
         default:
-        return;
+        cout <<"Exiting" <<endl;
+        break;
     }
 }
 

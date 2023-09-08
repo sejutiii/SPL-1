@@ -7,6 +7,8 @@ void multilinear_regression(int rows, int columns, vector< vector<double> > &dat
 {
     getInputMatrix(rows, columns, dataset, strHeaders);
     trainTheModel();
-    double y= test_for_y();
-    cout << "y= " << y << endl;
+    //double y= test_for_y();
+    //cout << "y= " << y << endl;
+
+    interpretation();
 }

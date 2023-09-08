@@ -5,17 +5,11 @@
 
 using namespace std;
 
-vector<vector<double>> matrix;
-vector<vector<double>> inverseMat;
-vector<vector<double>> augMat;
-bool isSingular= false;
-int n;
-
-void matrixInitialization(vector<vector<double>> x)
+void matrixInitialization(vector<vector<double>> x, vector<vector<double>> &matrix,vector<vector<double>> &inverseMat, vector<vector<double>> &augMat)
 {
     if(x.empty()) return;
 
-    n= x.size();
+    int n= x.size();
     matrix.resize(n, vector<double>(n));
     inverseMat.resize(n, vector<double>(n));
 
@@ -49,8 +43,9 @@ void matrixInitialization(vector<vector<double>> x)
     }
 }
 
-void setInverse()
+void setInverse(vector<vector<double>> &inverseMat, vector<vector<double>> &augMat)
 {
+    int n= inverseMat.size();
     int temp = n;
     cout <<"n= " <<  n << endl;
     for(int i=0; i<n; i++)
@@ -62,11 +57,12 @@ void setInverse()
     }
 }
 
-void inverseAugMat()
+void inverseAugMat(vector<vector<double>> &augMat)
 {
+    int n= augMat.size();
     for(int i=0; i<n; i++)
     {
-        int temp=0;
+        int temp=-1;
         double pivot= augMat[i][i];
 
         if(fabs(pivot) < EPS)
@@ -78,6 +74,12 @@ void inverseAugMat()
                     temp= j;
                     break;
                 }
+            }
+
+            if(temp == -1)
+            {
+                cout << "Cannot calculate Inverse" << endl;
+                exit(1);
             }
 
             swap(augMat[i], augMat[temp]);
@@ -127,29 +129,31 @@ void inverseAugMat()
     }
 }
 
-void GetinverseMatrix(vector<vector<double>> x) 
+void GetinverseMatrix(vector<vector<double>> x, vector<vector<double>> &inverseMat) 
 {
-    matrixInitialization(x);
+    vector<vector<double>> matrix;
+    vector<vector<double>> augMat;
+    matrixInitialization(x, matrix, inverseMat, augMat);
     
-    inverseAugMat();
+    inverseAugMat(augMat);
 
-    setInverse();
+    setInverse(inverseMat, augMat);
 }
 
-void printInverse(vector<vector<double>> x)
-{
-    GetinverseMatrix(x);
-    cout << "n= " << n;
-    if(isSingular == true)
-    {
-        cout << "Cannot calculate inverse." << endl;
-        return;
-    }
-    cout << "The inverse matrix:" << endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = n; j < 2*n; j++) {
-            cout << augMat[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
+// void printInverse(vector<vector<double>> x)
+// {
+//     GetinverseMatrix(x);
+//     cout << "n= " << n;
+//     if(isSingular == true)
+//     {
+//         cout << "Cannot calculate inverse." << endl;
+//         return;
+//     }
+//     cout << "The inverse matrix:" << endl;
+//     for (int i = 0; i < n; i++) {
+//         for (int j = n; j < 2*n; j++) {
+//             cout << augMat[i][j] << " ";
+//         }
+//         cout << endl;
+//     }
+// }

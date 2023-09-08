@@ -39,6 +39,7 @@ void getInputMatrix(int rows, int columns, vector< vector<double> >dataset, vect
         }
         cout << "Enter the y column: "<< endl ;
         cin >> yColumn;
+        yColumn--;
     }
     
     matX.resize(rows, vector<double> (numV+1));
@@ -103,4 +104,10 @@ double test_for_y()
     }
 
     return y;
+}
+
+void interpretation()
+{
+    double R_sq= get_Rsquare(matX, matY, beta);
+    cout << "R_sq= " << R_sq << endl;
 }
