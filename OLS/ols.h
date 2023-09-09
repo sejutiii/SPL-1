@@ -17,7 +17,6 @@ void ols_calculation(vector< vector<double> > &matX, vector <vector<double>> &ma
     transpose(matX, mat_Xtranspose);
     matrixMultiplication(mat_Xtranspose, matX, mat_temp1);
     GetinverseMatrix(mat_temp1, mat_inverse);
-
     matrixMultiplication(mat_inverse, mat_Xtranspose, mat_temp2);
     matrixMultiplication(mat_temp2, matY, beta);
 }

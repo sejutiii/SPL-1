@@ -79,30 +79,28 @@ void getInputMatrix(int rows, int columns, vector< vector<double> >dataset, vect
 void trainTheModel()
 {
     ols_calculation(matX, matY, beta);
-    cout << endl << "beta= " << endl;
-    printMat(beta);
-    cout << endl;
+    // cout << endl << "beta= " << endl;
+    // printMat(beta);
+    // cout << endl;
 }
 
 double test_for_y()
 {
     int k= xColumns.size();
-
     vector<double> x;
     x.resize(k+1);
     x[0]= 1;
     for(int i=0; i<k; i++)
     {
-        cout << "Enter the x value for " << titles[xColumns[i]] << ": ";
+        cout << "Enter the x value for " 
+        << titles[xColumns[i]] << ": ";
         cin >> x[i+1];
     }
-
     double y=0;
     for(int i=0; i<=k; i++)
     {
         y += (x[i] * beta[i][0]);
     }
-
     return y;
 }
 

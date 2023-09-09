@@ -1,3 +1,6 @@
+#ifndef INV_h
+#define INV_h
+
 #include <iostream>
 #include <vector>
 #include <cmath> 
@@ -47,7 +50,7 @@ void setInverse(vector<vector<double>> &inverseMat, vector<vector<double>> &augM
 {
     int n= inverseMat.size();
     int temp = n;
-    cout <<"n= " <<  n << endl;
+    //cout <<"n= " <<  n << endl;
     for(int i=0; i<n; i++)
     {
         for(int j=0; j<n; j++)
@@ -157,3 +160,5 @@ void GetinverseMatrix(vector<vector<double>> x, vector<vector<double>> &inverseM
 //         cout << endl;
 //     }
 // }
+
+#endif

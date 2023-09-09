@@ -39,7 +39,7 @@ void initialization(int rows, int columns, vector< vector<double> >dataset, vect
         cin >> degree;
     }
 
-    else if(degree > 12)
+    else if(degree >= 15)
     {
         char temp;
         cout << "For this degree the model might be highly overfitting the data" << endl;
@@ -76,7 +76,7 @@ void trainingThePolynomialModel()
     ols_calculation(poly_X, poly_Y, poly_beta);
     cout << endl << "beta= " << endl;
     printMat(poly_beta);
-    cout << endl;
+    // cout << endl;
 }
 
 // double get_SSE()

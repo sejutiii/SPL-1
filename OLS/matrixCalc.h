@@ -1,3 +1,6 @@
+#ifndef MCALC_h
+#define MCALC_h
+
 #include<iostream>
 #include<vector>
 
@@ -89,3 +92,5 @@ void printMat(vector<vector<double>> &A)
         cout << endl;
     }
 }
+
+#endif
