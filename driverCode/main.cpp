@@ -50,8 +50,7 @@ void startTheProgram()
         polynomial_regression(rows, columns, dataset, title);
         break;
         default:
-        cout <<"Exiting" <<endl;
+        cout <<"Exit" <<endl;
         break;
     }
 }
-

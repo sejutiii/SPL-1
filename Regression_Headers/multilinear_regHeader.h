@@ -110,4 +110,5 @@ void interpretation()
 {
     double R_sq= get_Rsquare(matX, matY, beta);
     cout << "R_sq= " << R_sq << endl;
+    interpretation_of_Rsq(R_sq);
 }

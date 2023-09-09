@@ -75,4 +75,10 @@ double get_Rsquare(vector< vector<double> > &matX, vector <vector<double>> &matY
     return R_sq;
 }
 
+void interpretation_of_Rsq(double R)
+{
+    cout << "The co-efficient of determination explains how well the model fits the data. "<< endl;
+    cout << "This model can explain " << R*100 << "% of the variation in the data. "<< endl << endl;
+}
+
 #endif

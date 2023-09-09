@@ -79,6 +79,23 @@ void trainingThePolynomialModel()
     cout << endl;
 }
 
+// double get_SSE()
+// {
+//     int n= poly_X.size();
+//     double SSE= 0;
+//     for(int i=0; i<n; i++)
+//     {
+//         double y_val=0;
+//         for(int j=0; j<=degree; j++)
+//         {
+//             y_val += (poly_X[i][j] * poly_beta[j][0]);
+//         }
+//         double error= poly_Y[i][0]- y_val;
+//         SSE += (error * error);
+//     }
+//     return SSE;
+// }
+
 double poly_test_for_y()
 {
     vector<double> x;
@@ -101,3 +118,25 @@ double poly_test_for_y()
 
     return y;
 }
+
+
+
+void interpretation_polynomial()
+{
+    double R= get_Rsquare(poly_X, poly_Y, poly_beta);
+    cout << "R_sq= " << R << endl;
+    if(R < 0 || R >1 )
+    {
+        cout << "This degree of the polynomial is a terrible fit for the model. ";
+    }
+    else interpretation_of_Rsq(R);
+}
+  
+
+// void test_poly()
+// {
+//     double SSE= get_SSE();
+//     double Syy= get_Syy(poly_Y);
+//     double R_sq= 1- (SSE/ Syy);
+//     cout << "R_sq= " << R_sq << endl;
+// }

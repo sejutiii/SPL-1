@@ -7,8 +7,37 @@ void multilinear_regression(int rows, int columns, vector< vector<double> > &dat
 {
     getInputMatrix(rows, columns, dataset, strHeaders);
     trainTheModel();
-    //double y= test_for_y();
-    //cout << "y= " << y << endl;
+    int choice;
+    cout << "Do you want to- " << endl;
+    cout << "1. Test for a fitted value" << endl;
+    cout << "2. Get the interpretation of the model" << endl;
+    cin >> choice;
 
-    interpretation();
+    if(choice == 1)
+    {
+        bool flag= true;
+        while(flag)
+        {
+            double y= test_for_y();
+            cout << "y= " << y << endl;
+            char temp;
+            cout << "Press c to continue, q to quit"<< endl;
+            cin >> temp;
+            if(temp== 'c'|| temp == 'C')
+                continue;
+            else
+                flag= false;
+        }
+
+        char temp;
+        cout << "Do you want to get the interpretation of the model?(y/n): " << endl;
+        cin >> temp;
+        if(temp == 'y' || temp == 'Y')
+            choice= 2;
+    }
+    if(choice == 2)
+    {
+        cout << endl;
+       interpretation();
+    }
 }
