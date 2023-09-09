@@ -76,7 +76,7 @@ void trainingThePolynomialModel()
     ols_calculation(poly_X, poly_Y, poly_beta);
     cout << endl << "beta= " << endl;
     printMat(poly_beta);
-    // cout << endl;
+    cout << endl;
 }
 
 // double get_SSE()

@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<iostream>
 #include<vector>
-#include"../Regression_Headers/polynomial.h"
+#include"../Regression_Headers/polynomial_reg.h"
 
 void polynomial_regression(int rows, int columns, vector< vector<double> > &dataset, vector<string> &strHeaders)
 {
@@ -9,5 +9,5 @@ void polynomial_regression(int rows, int columns, vector< vector<double> > &data
     trainingThePolynomialModel();
 //     double y= poly_test_for_y();
 //     cout << "y= " << y <<endl;
-    interpretation_polynomial();
+    //interpretation_polynomial();
 }
