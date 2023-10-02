@@ -145,35 +145,4 @@ void getInput(int rows, int columns, vector< vector<double> >dataset, vector<str
     }
 }
 
-void InputforLogisticReg(int rows, int columns, vector< vector<double> >dataset, vector<string>strHeaders)
-{
-   int xCol, yCol;
-    if(columns == 2)
-    {
-        xCol= 0;
-        yCol= 1;
-    }
-    else
-    {
-        cout << "For logistic regression- " << endl;
-        cout << "Enter the x column: " ;
-        cin >> xCol;
-        xCol--;
-        cout << "Enter the y column: ";
-        cin >> yCol;
-        yCol--;
-    }
-    
-    double xi, yi;
-    for(int i=0; i<rows; i++)
-    {
-        xi= dataset[i][xCol];
-        yi= dataset[i][yCol];
-        x.push_back(xi);
-        y.push_back(yi);
-    }
-}
-
-
-
 #endif
