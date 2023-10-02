@@ -24,7 +24,7 @@ void readFile(vector< vector<double> > &dataset, vector<string> &strHeaders)
         strHeader= true;
     }
 
-    FILE *fp= fopen("data.txt", "r");
+    FILE *fp= fopen("datafile.txt", "r");
 
     if(fp == NULL) 
     {
