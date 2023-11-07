@@ -1,9 +1,11 @@
 #include<iostream>
 #include"regression_fileread.h"
+#include"textfileRead.h"
 #include"../Regression/simple_linear_reg.h"
 #include"../Regression/multiple_linear_reg.h"
 #include"../Regression/polynomial_reg.h"
 #include"../classification_headers/logisticReg.h"
+#include"../classification_headers/multinomial_NB.h"
 
 using namespace std;
 
@@ -22,7 +24,8 @@ void introductoryInterface()
     cout << "1. Simple Linear Regression" << endl;
     cout << "2. Multiple Linear Regression" << endl;
     cout << "3. Simple Polynomial Regression" << endl << endl;
-    cout << "4. Logistic Regression" << endl << endl;
+    cout << "4. Logistic Regression" << endl;
+    cout<< "5. Naive Bayes Classification" << endl << endl;
 }
 
 void startTheProgram()
@@ -30,9 +33,18 @@ void startTheProgram()
     introductoryInterface();
     int choice;
 
-    cout << "Please Enter which operation you want to perform (1/2/3/4) or any other number to quit: " ;
+    cout << "Please Enter which operation you want to perform (1/2/3/4/5) or any other number to quit: " ;
 
     cin >> choice;
+
+    if(choice == 5)
+    {
+        vector<vector<string>> words;
+        vector <string> headers;
+        readTextFile(words, headers);
+        callTemp(words);
+        exit(1);
+    }
 
     vector< vector <double>> dataset;
     vector <string> title;
