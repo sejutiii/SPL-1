@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void readTextFile(vector<vector<string>> &dataset, vector<string> headers)
+void readTextFile(vector<vector<string>> &dataset, vector<string> &headers)
 {
     int numRow, numColumn;
     cout << "Enter the number of rows, columns" << endl;

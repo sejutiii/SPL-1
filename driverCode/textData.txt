@@ -1,7 +1,7 @@
 Weather Play
 Sunny No
 Overcast Yes
-Rainy Yes
+Rainy No
 Sunny Yes
 Sunny Yes
 Overcast Yes

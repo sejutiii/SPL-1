@@ -5,7 +5,7 @@
 #include"../Regression/multiple_linear_reg.h"
 #include"../Regression/polynomial_reg.h"
 #include"../classification_headers/logisticReg.h"
-#include"../classification_headers/multinomial_NB.h"
+#include"../classification/multinomial_NaiveBayes.h"
 
 using namespace std;
 
@@ -42,7 +42,7 @@ void startTheProgram()
         vector<vector<string>> words;
         vector <string> headers;
         readTextFile(words, headers);
-        callTemp(words);
+        NaiveBayesTextModule(words, headers);
         exit(1);
     }
 
