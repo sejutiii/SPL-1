@@ -25,7 +25,8 @@ void introductoryInterface()
     cout << "2. Multiple Linear Regression" << endl;
     cout << "3. Simple Polynomial Regression" << endl << endl;
     cout << "4. Logistic Regression" << endl;
-    cout<< "5. Naive Bayes Classification" << endl << endl;
+    cout<< "5. Naive Bayes Classification" << endl;
+    cout << "6. K means clustering" << endl << endl;
 }
 
 void startTheProgram()
@@ -33,7 +34,7 @@ void startTheProgram()
     introductoryInterface();
     int choice;
 
-    cout << "Please Enter which operation you want to perform (1/2/3/4/5) or any other number to quit: " ;
+    cout << "Please Enter which operation you want to perform (1/2/3/4/5/6) or any other number to quit: " ;
 
     cin >> choice;
 
