@@ -1,4 +1,3 @@
-#include<stdio.h>
 #include<iostream>
 #include<vector>
 #include"../Regression_Headers/polynomial_reg.h"

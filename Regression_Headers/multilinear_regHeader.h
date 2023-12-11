@@ -8,7 +8,7 @@ int yColumn;
 
 vector <vector <double>> matX;
 vector <vector <double>> matY;
-vector <vector <double>> beta;
+vector <vector <double>> matBeta;
 vector<string> titles;
 
 void getInputMatrix(int rows, int columns, vector< vector<double> >dataset, vector<string>strHeaders)
@@ -78,9 +78,9 @@ void getInputMatrix(int rows, int columns, vector< vector<double> >dataset, vect
 
 void trainTheModel()
 {
-    ols_calculation(matX, matY, beta);
+    ols_calculation(matX, matY, matBeta);
     // cout << endl << "beta= " << endl;
-    // printMat(beta);
+    // printMat(matBeta);
     // cout << endl;
 }
 
@@ -99,14 +99,14 @@ double test_for_y()
     double y=0;
     for(int i=0; i<=k; i++)
     {
-        y += (x[i] * beta[i][0]);
+        y += (x[i] * matBeta[i][0]);
     }
     return y;
 }
 
 void interpretation()
 {
-    double R_sq= get_Rsquare(matX, matY, beta);
+    double R_sq= get_Rsquare(matX, matY, matBeta);
     cout << "R_sq= " << R_sq << endl;
     interpretation_of_Rsq(R_sq);
 }

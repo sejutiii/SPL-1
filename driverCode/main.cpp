@@ -6,6 +6,7 @@
 #include"../Regression/polynomial_reg.h"
 #include"../classification_headers/logisticReg.h"
 #include"../classification/multinomial_NaiveBayes.h"
+#include"../kMeans/kmeans_implementation.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ void introductoryInterface()
     cout << "2. Multiple Linear Regression" << endl;
     cout << "3. Simple Polynomial Regression" << endl << endl;
     cout << "4. Logistic Regression" << endl;
-    cout<< "5. Naive Bayes Classification" << endl;
+    cout << "5. Naive Bayes Classification" << endl;
     cout << "6. K means clustering" << endl << endl;
 }
 
@@ -66,6 +67,9 @@ void startTheProgram()
         break;
         case 4:
         logisticRegModelTrain(rows, columns, dataset, title);
+        case 6: 
+        kMeansClustering(rows, columns, dataset, title);
+        break;
         default:
         cout <<"Exit" <<endl;
         break;
