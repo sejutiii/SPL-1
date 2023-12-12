@@ -24,7 +24,7 @@ void readFile(vector< vector<double> > &dataset, vector<string> &strHeaders)
         strHeader= true;
     }
 
-    FILE *fp= fopen("kmeans_credit.txt", "r");
+    FILE *fp= fopen("knn.txt", "r");
 
     if(fp == NULL) 
     {

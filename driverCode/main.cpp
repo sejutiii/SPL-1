@@ -6,6 +6,7 @@
 #include"../Regression/polynomial_reg.h"
 #include"../classification_headers/logisticReg.h"
 #include"../classification/multinomial_NaiveBayes.h"
+#include"../classification/KNN_classification.h"
 #include"../kMeans/kmeans_implementation.h"
 
 using namespace std;
@@ -27,7 +28,8 @@ void introductoryInterface()
     cout << "3. Simple Polynomial Regression" << endl << endl;
     cout << "4. Logistic Regression" << endl;
     cout << "5. Naive Bayes Classification" << endl;
-    cout << "6. K means clustering" << endl << endl;
+    cout << "6. K means clustering" << endl;
+    cout << "7. KNN classification" << endl << endl;
 }
 
 void startTheProgram()
@@ -35,7 +37,7 @@ void startTheProgram()
     introductoryInterface();
     int choice;
 
-    cout << "Please Enter which operation you want to perform (1/2/3/4/5/6) or any other number to quit: " ;
+    cout << "Please Enter which operation you want to perform (1/2/3/4/5/6/7) or any other number to quit: " ;
 
     cin >> choice;
 
@@ -69,6 +71,9 @@ void startTheProgram()
         logisticRegModelTrain(rows, columns, dataset, title);
         case 6: 
         kMeansClustering(rows, columns, dataset, title);
+        break;
+        case 7: 
+        knn_classification(rows, columns, dataset, title);
         break;
         default:
         cout <<"Exit" <<endl;
