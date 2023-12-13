@@ -12,6 +12,7 @@
 using namespace std;
 
 void introductoryInterface();
+void learn_about_the_program();
 void startTheProgram();
 
 int main()
@@ -19,17 +20,24 @@ int main()
     startTheProgram();
 }
 
+void learn_about_the_program()
+{
+
+}
+
 void introductoryInterface()
 {
+    cout << "--------------------------------------------------------------------------------------------" << endl;
     cout << endl << "welcome to DataSift!" << endl << endl;
-    cout << "The program can currently perform- " << endl;
+    cout << "-------------------------------------------------------------------------------------------" << endl;
+    cout << endl << "The program can currently perform- " << endl << endl;
     cout << "1. Simple Linear Regression" << endl;
     cout << "2. Multiple Linear Regression" << endl;
     cout << "3. Simple Polynomial Regression" << endl << endl;
     cout << "4. Logistic Regression" << endl;
     cout << "5. Naive Bayes Classification" << endl;
-    cout << "6. K means clustering" << endl;
-    cout << "7. KNN classification" << endl << endl;
+    cout << "6. KNN classification" << endl << endl;
+    cout << "7. K means clustering" << endl << endl;
 }
 
 void startTheProgram()
@@ -41,19 +49,19 @@ void startTheProgram()
 
     cin >> choice;
 
-    vector< vector <double>> dataset;
-    vector <string> title;
-
     if(choice == 5)
     {
         vector< vector <string>> str_dataset;
-        readTextFile(str_dataset, title);
+        vector <string> header;
+        readTextFile(str_dataset, header);
         int rows= str_dataset.size();
         int columns= str_dataset[0].size();
-        NaiveBayesTextModule(rows, columns, str_dataset, title);
-        exit(1);
+        NaiveBayesTextModule(rows, columns, str_dataset, header);
+        return;
     }
 
+    vector< vector <double>> dataset;
+    vector <string> title;
     readFile(dataset, title);
     int rows= dataset.size();
     int columns= dataset[0].size();
