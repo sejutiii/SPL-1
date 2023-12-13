@@ -2,133 +2,247 @@
 
 using namespace std;
 
-vector<pair<string, pair<int, int>>> freqTable; 
-vector<string> categories, tags;
-vector<pair<double, double>> likelihoodTable;
-vector<double> cat_probability, tag_probability;
+int MNB_numfeatures, MNB_target;
+vector<int> MNB_features;
+vector<vector<pair <string, vector<int>>>> MNB_freqTable; /*
+x1 -> [c1, [t1_count_c1, t2_count1, ...]], [c2, [t1_count_c2, t2_count2, ...]], ...
+x2 -> [c1, [t1_count_c1, t2_count1, ...]], [c2, [t1_count_c2, t2_count2, ...]], ...
+...
+*/
+vector< pair <string, int>> MNB_target_freq; //frequency table for target variable
+int MNB_target_cats; // number of categories in the target column
+vector<string> MNB_target_tags; // the string values for the target categories
+vector<double> MNB_prior_probabilities, MNB_posterior_probabilities;
+vector<vector<double>> MNB_likelihoodTable;
+/*
+    x1 -> P(c|t1), P(c|t2), ...
+    x2 -> P(c|t1), P(c|t2), ...
+    ...
+*/
 double allTotal;
 
-bool contains (string word, vector<string> arr)
+vector<string> MNB_new_datapoint;
+
+int containsIn(string word, vector<string> arr)
 {
-    for(auto cat: arr)
+    for(int i=0; i<arr.size(); i++)
     {
-        if(cat == word) return true;
+        if(arr[i]== word) return i;
     }
-    return false;
+    return -1;
 }
 
-void createFrequencyTable(vector<vector<string>> dataset)
+void makeTarget_frequencyTable(int rows, vector<vector<string>> dataset)
 {
-    int numRows= dataset.size();
-    allTotal= numRows;
-    for(int i=0; i<numRows; i++)
+    for(int j=0; j<rows; j++)
     {
-        // For row[0]
-        vector<string> row= dataset[i];
-        if(contains(row[0], categories) == false)
+        int index = containsIn(dataset[j][MNB_target], MNB_target_tags);
+        if(index == -1)
         {
-            categories.push_back(row[0]);
-            pair<string, pair<int, int>> temp;
-            temp.first= row[0];
-            temp.second.first= 0;
-            temp.second.second= 0;
-            freqTable.push_back(temp);
+            MNB_target_tags.push_back(dataset[j][MNB_target]);
+            pair<string, int> temp;
+            temp.first= dataset[j][MNB_target];
+            temp.second= 1;
+            MNB_target_freq.push_back(temp);
         }
-
-        // For row[1]
-        if(contains(row[1], tags)== false)
-        {
-            tags.push_back(row[1]);
+        else{
+            MNB_target_freq[index].second++;
         }
     }
+    MNB_target_cats= MNB_target_tags.size();
+}
 
-    for(int i=0; i<numRows; i++)
+void createFrequencyTable(int rows, int columns, vector<vector<string>> dataset)
+{   
+    allTotal= rows;
+    makeTarget_frequencyTable(rows, dataset);
+    for(int i=0; i<MNB_numfeatures; i++)
     {
-        vector<string> row= dataset[i];
-        string word= row[0];
-        string tag= row[1];
-        for(auto &pairedRow: freqTable)
+        vector<pair <string, vector<int>>> feature_cats;
+        vector<string> cat;
+        for(int j=0; j<rows; j++)
         {
-            if(pairedRow.first== word)
+            int index = containsIn(dataset[j][MNB_features[i]], cat);
+            int targetIndex= containsIn(dataset[j][MNB_target], MNB_target_tags);
+            if(index == -1)
             {
-                if(tag == tags[0])
-                {
-                    pairedRow.second.first++;
-                }
-                else if(tag== tags[1])
-                pairedRow.second.second++;
+                cat.push_back(dataset[j][MNB_features[i]]);
+                pair<string, vector<int>> temp;
+                temp.first= dataset[j][MNB_features[i]];
+                temp.second.resize(MNB_target_cats);
+                temp.second[targetIndex]++;
+                feature_cats.push_back(temp);
+            }
+            else{
+                feature_cats[index].second[targetIndex]++;
             }
         }
+        MNB_freqTable.push_back(feature_cats);
     }
 }
 
-void createLikelihoodTable()
+bool isDiscrete(int rows, int index, vector<vector<string>>dataset)
 {
-    int count_tag1=0, count_tag2=0;
-    for(auto row: freqTable)
+    vector<string> temp;
+    int range = ceil(sqrt(rows));
+    range = range*2;
+    for(int i=0; i<rows; i++)
     {
-        double temp= row.second.first+ row.second.second;
-        temp= temp/ allTotal;
-        cat_probability.push_back(temp);
-        count_tag1 += row.second.first;
-        count_tag2 += row.second.second;
+        if(containsIn(dataset[i][index], temp)== -1)
+            temp.push_back(dataset[i][index]);
     }
-
-    for(auto row: freqTable)
-    {
-        pair <double, double> temp;
-        temp.first= (double) row.second.first/ count_tag1;
-        temp.second= (double) row.second.second/ count_tag2;
-        likelihoodTable.push_back(temp);
-    }
-
-    double temp= count_tag1/allTotal;
-    tag_probability.push_back(temp);
-    temp= count_tag2/allTotal;
-    tag_probability.push_back(temp);
+    if(temp.size()> 0 && temp.size() <= range) return true;
+    else return false;
 }
 
-void printFreqTable()
+void initialize_BayesTable(int rows, int columns, vector<vector<string>>dataset, vector<string>strHeaders)
 {
-    for(auto row: likelihoodTable)
+    cout << endl << "The dataset contains the following columns: " << endl;
+    int i=1;
+    for(auto a: strHeaders)
     {
-        cout << row.first << " " << row.second<< endl; 
+        cout << i << ". " << a << endl;
+        i++;
     }
-}
-
-string posterior_probability(string input)
-{
-   int cats= freqTable.size();
-   double probGiven_tag1, probGiven_tag2;
-   for(int i=0; i<cats; i++)
-   {
-        if(input == freqTable[i].first)
+    cout << endl;
+    cout << "Enter the target column: ";
+    cin >> MNB_target;
+    MNB_target--;
+    if(!isDiscrete(rows, MNB_target, dataset))
+    {
+        cout << "Cannot perform Naive Bayes classification since the dataset is not discrete" << endl;
+        exit(1);
+    }
+    cout << "Enter the number of features to classify on (Must contain discrete/ categorical values): ";
+    cin >> MNB_numfeatures;
+    cout << "Enter the feature columns: ";
+    for(int i=0; i<MNB_numfeatures; i++)
+    {
+        int index;
+        cin >> index;
+        index--;
+        if(isDiscrete(rows, index, dataset))
         {
-            probGiven_tag1= tag_probability[0]* freqTable[i].second.first/ cat_probability[i];
-            probGiven_tag2= tag_probability[1]* freqTable[i].second.second/ cat_probability[i];
-            break;
+            MNB_features.push_back(index);
         }
-   }
-   if(probGiven_tag1 > probGiven_tag2) return tags[0];
-   else return tags[1];
-}
-
-void prediction_model(vector<string> header)
-{
-    for(auto word: categories)
-    {
-        cout<< word<< endl;
+        else cout<< endl << strHeaders[index] << " contains continuous variables." << endl << endl;
     }
-    cout<< "Enter the input "<< header[0] << ": ";
-    string input, output;
-    cin >> input;
-    output= posterior_probability(input);
-    cout << header[1]<< ": " << output << endl;  
+    MNB_numfeatures= MNB_features.size();
 }
 
-void trainingOntheDataset(vector<vector<string>> dataset)
+void printFreqTable(vector<string>strHeaders)
 {
-    createFrequencyTable(dataset);
-    createLikelihoodTable();
-    // printFreqTable();
+    cout << endl << "------------------------------------- Frequency Table -----------------------------------------" << endl << endl;
+    cout<< "Output column contains: ";
+    for(auto a: MNB_target_tags)
+    {
+        cout << a << " ";
+    }
+    cout << endl << endl;
+    for(int i=0; i<MNB_numfeatures; i++)
+    {
+        cout << "For " << strHeaders[MNB_features[i]] << ": " << endl;
+        for(int j=0; j<MNB_freqTable[i].size(); j++)
+        {
+            cout << MNB_freqTable[i][j].first << ": ";
+            for(int k=0; k<MNB_target_cats; k++)
+            {
+                cout << MNB_freqTable[i][j].second[k] << " ";
+            }
+            cout << endl;
+        }
+        cout << endl;
+    }
+}
+
+void calculate_prior_probability()
+{
+    for(int i=0; i<MNB_target_cats; i++)
+    {
+        double p= MNB_target_freq[i].second/ allTotal;
+        MNB_prior_probabilities.push_back(p);
+    }
+}
+
+void calculate_likelihoodTable()
+{
+    for(int i=0; i<MNB_numfeatures; i++)
+    {
+        vector<double> temp;
+        for(int j=0; j<MNB_freqTable[i].size(); j++)
+        {
+            if(MNB_freqTable[i][j].first == MNB_new_datapoint[i])
+            {
+                for(int k=0; k<MNB_target_cats; k++)
+                {
+                    double probability= MNB_freqTable[i][j].second[k]/ MNB_target_freq[k].second;
+                    temp.push_back(probability);
+                }
+                break;
+            }
+        }
+        MNB_likelihoodTable.push_back(temp);
+    }
+}
+
+void calculate_posterior_probability()
+{
+    for(int i=0; i<MNB_target_cats; i++)
+    {
+        double p= 1;
+        for(int j=0; j<MNB_numfeatures; j++)
+        {
+            p *= MNB_likelihoodTable[j][i];
+        }
+        p*= MNB_prior_probabilities[i];
+        MNB_posterior_probabilities.push_back(p);
+    }
+}
+
+void MNB_addNew_datapoint(vector<string>strHeaders)
+{
+    MNB_new_datapoint.clear();
+    cout << "Enter the input values: " << endl;
+    for(int i=0; i<MNB_numfeatures; i++)
+    {
+        string temp;
+        cout << strHeaders[MNB_features[i]] << "(" << MNB_freqTable[i][0].first;
+        for(int j=1; j<MNB_freqTable[i].size(); j++)
+        {
+            cout << "/ " << MNB_freqTable[i][j].first;
+        }
+        cout << ") : ";
+        cin >> temp;
+        MNB_new_datapoint.push_back(temp);
+    }
+}
+
+void print_output_for_Newpoint(vector<string>strHeaders)
+{
+    double max = -1;
+    int index= -1;
+    for(int i=0; i<MNB_target_cats; i++)
+    {
+        if(MNB_posterior_probabilities[i] > max)
+        {
+            max= MNB_posterior_probabilities[i];
+            index= i;
+        }
+    }
+    cout << endl << strHeaders[MNB_target] << ": " << MNB_target_tags[index] << endl << endl;
+}
+
+void processingtheDataset(int rows, int columns, vector<vector<string>> dataset, vector<string>strHeaders)
+{
+    initialize_BayesTable(rows, columns, dataset, strHeaders);
+    createFrequencyTable(rows, columns, dataset);
+    calculate_prior_probability();
+}
+
+void predict_for_a_newPoint(vector<string>strHeaders)
+{
+    MNB_addNew_datapoint(strHeaders);
+    calculate_likelihoodTable();
+    calculate_posterior_probability();
+    print_output_for_Newpoint(strHeaders);
 }

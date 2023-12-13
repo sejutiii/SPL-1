@@ -41,17 +41,19 @@ void startTheProgram()
 
     cin >> choice;
 
+    vector< vector <double>> dataset;
+    vector <string> title;
+
     if(choice == 5)
     {
-        vector<vector<string>> words;
-        vector <string> headers;
-        readTextFile(words, headers);
-        NaiveBayesTextModule(words, headers);
+        vector< vector <string>> str_dataset;
+        readTextFile(str_dataset, title);
+        int rows= str_dataset.size();
+        int columns= str_dataset[0].size();
+        NaiveBayesTextModule(rows, columns, str_dataset, title);
         exit(1);
     }
 
-    vector< vector <double>> dataset;
-    vector <string> title;
     readFile(dataset, title);
     int rows= dataset.size();
     int columns= dataset[0].size();
@@ -69,6 +71,7 @@ void startTheProgram()
         break;
         case 4:
         logisticRegModelTrain(rows, columns, dataset, title);
+        break;
         case 6: 
         kMeansClustering(rows, columns, dataset, title);
         break;

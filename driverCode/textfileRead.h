@@ -5,7 +5,7 @@ using namespace std;
 void readTextFile(vector<vector<string>> &dataset, vector<string> &headers)
 {
     int numRow, numColumn;
-    cout << "Enter the number of rows, columns" << endl;
+    cout << "Enter the number of rows and columns: ";
     cin >> numRow >> numColumn;
 
     FILE *fp= fopen("drugs_nb_text.txt", "r");
