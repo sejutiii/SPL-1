@@ -8,7 +8,7 @@ void readTextFile(vector<vector<string>> &dataset, vector<string> &headers)
     cout << "Enter the number of rows, columns" << endl;
     cin >> numRow >> numColumn;
 
-    FILE *fp= fopen("textData.txt", "r");
+    FILE *fp= fopen("drugs_nb_text.txt", "r");
 
     if(fp == NULL) 
     {
