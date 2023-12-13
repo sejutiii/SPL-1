@@ -1,6 +1,6 @@
 #include<iostream>
-#include"regression_fileread.h"
-#include"textfileRead.h"
+#include"csvFileReader.h"
+#include"textfileReader.h"
 #include"../Regression/simple_linear_reg.h"
 #include"../Regression/multiple_linear_reg.h"
 #include"../Regression/polynomial_reg.h"

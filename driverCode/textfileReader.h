@@ -8,7 +8,11 @@ void readTextFile(vector<vector<string>> &dataset, vector<string> &headers)
     cout << "Enter the number of rows and columns: ";
     cin >> numRow >> numColumn;
 
-    FILE *fp= fopen("drugs_nb_text.txt", "r");
+    char filename[100];
+    cout << "Enter the file name: ";
+    cin >> filename;
+
+    FILE *fp= fopen(filename, "r");
 
     if(fp == NULL) 
     {
@@ -35,21 +39,4 @@ void readTextFile(vector<vector<string>> &dataset, vector<string> &headers)
         }
         dataset.push_back(row);
     }
-
-    // cout << headers.size();
-    // for(auto word: headers)
-    // {
-    //     cout << word << " ";
-    // }
-    // cout << endl;
-
-    // cout << dataset.size() << endl;
-    // for(auto row: dataset)
-    // {
-    //     for(auto word: row)
-    //     {
-    //         cout << word << " ";
-    //     }
-    //     cout << endl;
-    // }
 }
