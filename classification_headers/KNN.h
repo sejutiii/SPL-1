@@ -38,7 +38,6 @@ int getCategories(int rows, vector<vector<double>> dataset)
 void KNN_classify(int rows, int columns, vector<vector<double>> dataset)
 {
     int categories= getCategories(rows, dataset);
-    cout << categories << endl;
     //KNN_clusters.resize(categories);
    for(int i=0; i<categories; i++)
    {
@@ -60,20 +59,22 @@ void KNN_classify(int rows, int columns, vector<vector<double>> dataset)
 
 void KNN_printClusters()
 {
-    cout << endl;
+    cout << endl << "------------------------------------------------ KNN Clusters Table -------------------------------------------" << endl;
     for(int i=0; i<KNN_targetRow.size(); i++)
     {
+        cout << "---------------------------------------------------------------------------------------------------------------" << endl << endl;
         cout << "Group- " << i+1 << ": "<< KNN_clusters[i].size() << endl << endl;
-        // for(int j=0; j<KNN_clusters[i].size(); j++)
-        // {
-        //     for(auto data: KNN_clusters[i][j])
-        //     {
-        //         cout << data << " ";
-        //     }
-        //     cout << endl;
-        // }
+        for(int j=0; j<KNN_clusters[i].size(); j++)
+        {
+            for(auto data: KNN_clusters[i][j])
+            {
+                cout << data << " ";
+            }
+            cout << endl;
+        }
         cout << endl << endl << endl;
     }
+    cout << "---------------------------------------------------------------------------------------------------------------" << endl;
 }
 
 void KNN_initialize(int rows, int columns, vector<vector<double>> dataset)
@@ -95,7 +96,7 @@ void KNN_initialize(int rows, int columns, vector<vector<double>> dataset)
 
     KNN_k = ceil (sqrt(rows));
     if(KNN_k%2 == 0) KNN_k--;
-    cout << "For this dataset, default k= " << KNN_k << endl;
+    cout << endl << "For this dataset, default k= " << KNN_k << endl << endl;
     char choice;
     cout << "Do you want to update the value of k (y/n)? ";
     cin >> choice;
@@ -149,7 +150,7 @@ void calculate_distance(int rows, vector< vector<double> >dataset)
     }
 }
 
-int maxCount_cluster(vector<vector<double>>dataset, vector<int> count)
+int maxCount_cluster(vector<vector<double>>dataset, vector<int>&count)
 {
     int categories= KNN_targetRow.size();    
     count.resize(categories);
@@ -188,6 +189,8 @@ void classify_newPoint(int rows, vector< vector<double> >dataset)
     sort(KNN_distances.begin(), KNN_distances.end());
     vector<int> count;
     int max_index= maxCount_cluster(dataset, count);
+    cout << endl << "------------------------------------------------ KNN Output Value -------------------------------------------" << endl;
     cout << "The new data point falls in group-" << max_index+1;
     cout << " with target value " << KNN_targetRow[max_index] << " and count " << count[max_index] << "/" << KNN_k << endl;
+    cout << "---------------------------------------------------------------------------------------------------------------" << endl;
 }

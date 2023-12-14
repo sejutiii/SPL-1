@@ -3,15 +3,17 @@
 
 using namespace std;
 
-void logisticRegModelTrain(int rows, int column, vector< vector<double> > &dataset, vector<string> &strHeaders);
-int getPrediction();
-double getZ();
+double z, p;
+int xCol, yCol;
+
+void logisticRegModelTrain(int rows, int column, vector< vector<double> >dataset, vector<string>strHeaders);
+int getPrediction(vector<string>strHeaders);
+double getZ(vector<string>strHeaders);
 double sigmoid(double z);
 //void InputforLogisticReg(int rows, int columns, vector< vector<double> >dataset, vector<string>strHeaders);
 
 void InputforLogisticReg(int rows, int columns, vector< vector<double> >dataset, vector<string>strHeaders)
 {
-   int xCol, yCol;
    double threshold;
     if(columns == 2)
     {
@@ -20,7 +22,7 @@ void InputforLogisticReg(int rows, int columns, vector< vector<double> >dataset,
     }
     else
     {
-        cout << "For logistic regression- " << endl;
+        cout << endl << "For logistic regression- " << endl;
         cout << "Enter the x column: " ;
         cin >> xCol;
         xCol--;
@@ -57,24 +59,36 @@ void InputforLogisticReg(int rows, int columns, vector< vector<double> >dataset,
     }
 }
 
-void logisticRegModelTrain(int rows, int column, vector< vector<double> > &dataset, vector<string> &strHeaders)
+void log_reg_interpretation()
+{
+    cout<< endl << "For this input value the probability in sigmoid function, p= " << p << endl << endl;
+}
+
+void logisticRegModelTrain(int rows, int column, vector< vector<double> >dataset, vector<string>strHeaders)
 {
     InputforLogisticReg(rows, column, dataset, strHeaders);
     trainingModel();
     char q= 'c';
     while (q != 'q')
     {
-        getPrediction();
-        cout <<"press q to quit, anything else to continue: ";
+        getPrediction(strHeaders);
+        cout << endl << "press q to quit, anything else to continue: ";
         cin >> q;
     }
+    cout << endl << "Do you want the interpretation of this output value? (y/n): ";
+    cin >> q;
+
+    if(q== 'y'|| q== 'Y')
+    {
+        log_reg_interpretation();
+    }
 }
-double getZ()
+double getZ(vector<string>strHeaders)
 {
     double xi, z;
-    cout <<"Enter the new x value for testing: "<< endl;
+    cout <<"Enter the new x value for testing ("<< strHeaders[xCol] << "): "<< endl;
     cin >> xi;
-    z= predictor(xi);
+    z= predictor(xi); //In linear regression
     return z;
 }
 
@@ -84,11 +98,11 @@ double sigmoid(double z)
     return val;
 }
 
-int getPrediction()
+int getPrediction(vector<string>strHeaders)
 {
-    double z= getZ();
-    double p= sigmoid(z);
-    if(p < 0.5 ) 
+    z= getZ(strHeaders);
+    p= sigmoid(z);
+    if(p < 0.5) 
     {
         cout << "The predicted value= 0" << endl;
         return 0;

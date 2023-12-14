@@ -153,6 +153,7 @@ void printFreqTable(vector<string>strHeaders)
         }
         cout << endl;
     }
+     cout << endl << "---------------------------------------------------------------------------------------------" << endl;
 }
 
 void calculate_prior_probability()

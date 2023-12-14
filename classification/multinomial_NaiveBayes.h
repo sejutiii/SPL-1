@@ -9,9 +9,10 @@ void NaiveBayesTextModule(int rows, int columns, vector<vector<string>> &dataset
         cout << endl << "Do you want to- " << endl;
         cout << "1. Print Frequency table" << endl;
         cout << "2. Test for an input value" << endl;
-        cout << "3. Quit" << endl;
+        cout << "3. Quit" << endl << endl;
         cout << "Enter your choice here: ";
         cin >> choice;
+        cout << endl;
         if(choice == 1) printFreqTable(strHeaders);
         else if(choice ==2) predict_for_a_newPoint(strHeaders);
         else break;

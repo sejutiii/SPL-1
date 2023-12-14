@@ -8,9 +8,11 @@ void multilinear_regression(int rows, int columns, vector< vector<double> > &dat
     getInputMatrix(rows, columns, dataset, strHeaders);
     trainTheModel();
     int choice;
-    cout << "Do you want to- " << endl;
+    cout <<endl<< "Do you want to- " << endl;
     cout << "1. Test for a fitted value" << endl;
     cout << "2. Get the interpretation of the model" << endl;
+    cout << "3. Quit" << endl << endl;
+    cout << "Enter choice: ";
     cin >> choice;
 
     if(choice == 1)
@@ -18,10 +20,11 @@ void multilinear_regression(int rows, int columns, vector< vector<double> > &dat
         bool flag= true;
         while(flag)
         {
+            cout << endl;
             double y= test_for_y();
-            cout << "y= " << y << endl;
+            cout << "y= " << y << endl << endl;
             char temp;
-            cout << "Press c to continue, q to quit"<< endl;
+            cout << "Press c to continue, q to quit: ";
             cin >> temp;
             if(temp== 'c'|| temp == 'C')
                 continue;
@@ -30,7 +33,7 @@ void multilinear_regression(int rows, int columns, vector< vector<double> > &dat
         }
 
         char temp;
-        cout << "Do you want to get the interpretation of the model?(y/n): " << endl;
+        cout << endl << "Do you want to get the interpretation of the model?(y/n): " << endl;
         cin >> temp;
         if(temp == 'y' || temp == 'Y')
             choice= 2;
@@ -38,6 +41,7 @@ void multilinear_regression(int rows, int columns, vector< vector<double> > &dat
     if(choice == 2)
     {
         cout << endl;
-       interpretation();
+        cout << "Interpretation of the model: " << endl << endl;
+        interpretation();
     }
 }

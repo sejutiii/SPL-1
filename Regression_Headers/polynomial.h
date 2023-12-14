@@ -99,15 +99,15 @@ void trainingThePolynomialModel()
 double poly_test_for_y()
 {
     vector<double> x;
-    x.resize(degree+1);
-    x[0]= 1;
+    //x.resize(degree+1);
+    x.push_back(1);
     cout << "Enter the x value to test: ";
     double xi;
     cin >> xi;
-    x[1]= xi;
+    x.push_back(xi);
     for(int i=1; i<degree; i++)
     {
-        x[i+1]= (x[i]* xi);
+        x.push_back((x[i]* xi));
     }
 
     double y=0;

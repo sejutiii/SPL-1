@@ -10,9 +10,11 @@ void simple_linear_regression(int rows, int column, vector< vector<double> > &da
     getInput(rows, column, dataset, strHeaders);
     trainingModel();
     int choice;
-    cout << "Do you want to- " << endl;
+    cout << endl << "Do you want to- " << endl;
     cout << "1. Test for a fitted value" << endl;
     cout << "2. Get the interpretation of the model" << endl;
+    cout << "3. Quit" << endl << endl;
+    cout << "Enter choice: ";
     cin >> choice;
     if(choice == 1)
     {
@@ -42,8 +44,10 @@ void simple_linear_regression(int rows, int column, vector< vector<double> > &da
     if(choice == 2)
     {
         cout << endl;
+        cout << "Interpretation of the model: " << endl << endl;
         interpretationOfParameters();
         cout << endl;
         interpretationOfCOD();
+        cout << endl << endl;
     }
 }

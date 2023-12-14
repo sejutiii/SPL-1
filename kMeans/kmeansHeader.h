@@ -44,7 +44,7 @@ void initializeCentroids(vector< vector<double>> dataset)
     {
         vector<int> temp;
         temp.push_back(centroids[i]);
-        cout << centroids[i] << endl; 
+       // cout << centroids[i] << endl; 
         clusters.push_back(temp);
 
         vector<double> centroidFeatures;
@@ -182,7 +182,7 @@ void printClusters(vector<vector<double>> dataset)
         count++;
     }
 
-    cout << "variance= " << measureVariation(dataset) << endl;
+    cout << endl << "variance= " << measureVariation(dataset) << endl << endl;
 }
 
 void KmeansTrainingModel(int rows, int columns, vector<vector<double>> dataset)
@@ -192,7 +192,7 @@ void KmeansTrainingModel(int rows, int columns, vector<vector<double>> dataset)
 
 void add_new_dataPoint(int columns, vector< vector<double> > &dataset, vector<string> strHeaders)
 {
-    cout << "Enter the values for the new node: " << endl;
+    cout << endl << "Enter the values for the new node: " << endl << endl;
     vector<double> tempRow;
     for(int i=0; i<columns; i++)
     {
@@ -209,5 +209,5 @@ void assign_newPoint_toCluster(int columns, vector< vector<double> > &dataset, v
 {
     add_new_dataPoint(columns, dataset, strHeaders);
     int clusterNum= addToCluster(numNodes-1, dataset);
-    cout << "The data point was added to cluster- " << clusterNum+1 << endl;
+    cout << endl << "The data point was added to cluster- " << clusterNum+1 << endl;
 }

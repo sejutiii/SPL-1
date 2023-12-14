@@ -81,10 +81,10 @@ void startTheProgram()
         logisticRegModelTrain(rows, columns, dataset, title);
         break;
         case 6: 
-        kMeansClustering(rows, columns, dataset, title);
+        knn_classification(rows, columns, dataset, title);
         break;
         case 7: 
-        knn_classification(rows, columns, dataset, title);
+        kMeansClustering(rows, columns, dataset, title);
         break;
         default:
         cout <<"Exit" <<endl;
