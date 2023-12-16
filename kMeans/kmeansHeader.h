@@ -134,36 +134,24 @@ void formClusters(vector<vector<double>> dataset)
     }
 }
 
-void calculateMeanNode(vector<vector<double>> dataset)
-{
-    for(int i=0; i<numFeatures; i++)
-    {
-        double mean= 0;
-        for(int j=0; j<numNodes; j++)
-        {
-            mean += dataset[j][testOnFeatures[i]];
-        }
-        mean = mean/ numNodes;
-        meanFeatureNode.push_back(mean);
-    }
-}
-
 double measureVariation(vector<vector<double>> dataset)
 {
-    calculateMeanNode(dataset);
     double variance = 0;
     for(int i=0; i<k; i++)
     {
         double sum= 0;
-        for(int j=0; j<numFeatures; j++)
+        for(int c=0; c<clusters[i].size(); c++)
         {
-            double diff= centroidPoints[i][j]- meanFeatureNode[j];
-            diff = diff* diff;
-            sum += diff;
+            for(int j=0; j<numFeatures; j++)
+            {
+                double diff= dataset[clusters[i][c]][j]- centroidPoints[i][j];
+                diff = diff* diff;
+                sum += diff;
+            }
+            variance += sum;
         }
-        variance += sum;
     }
-    variance = variance/ k-1;
+    variance = variance/(dataset.size()- k);
     return variance;
 }
 
@@ -182,7 +170,7 @@ void printClusters(vector<vector<double>> dataset)
         count++;
     }
 
-    cout << endl << "variance= " << measureVariation(dataset) << endl << endl;
+    cout << endl << "Intra cluster variance= " << measureVariation(dataset) << endl << endl;
 }
 
 void KmeansTrainingModel(int rows, int columns, vector<vector<double>> dataset)

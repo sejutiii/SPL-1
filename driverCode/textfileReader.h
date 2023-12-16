@@ -2,41 +2,43 @@
 
 using namespace std;
 
-void readTextFile(vector<vector<string>> &dataset, vector<string> &headers)
+void readTextFile(vector<vector<string>> &dataset, vector<string> &strHeaders)
 {
-    int numRow, numColumn;
-    cout << "Enter the number of rows and columns: ";
-    cin >> numRow >> numColumn;
-
-    char filename[100];
-    cout << "Enter the file name: ";
+    string filename;
+    cout << "Enter the input file name (csv): ";
     cin >> filename;
 
-    FILE *fp= fopen(filename, "r");
-
-    if(fp == NULL) 
+    ifstream file(filename);
+    if(!file.is_open())
     {
-        cout << "Error in opening file"<< endl;
-        exit (1);
+        cerr << "Error opening in file." << endl;
+        exit(1);
     }
 
-    for(int i=0; i<numColumn; i++)
-    {
-        char temp[50];
-        fscanf(fp, "%s", temp);
-        headers.push_back(temp);
-    }
+    string line;
+    if (getline(file, line)) {
+        stringstream ss(line);
+        string token;
 
-
-    for(int i=0; i<numRow; i++)
-    {
-        vector<string> row;
-        for(int j=0; j<numColumn; j++)
-        {
-            char temp[50];
-            fscanf(fp, "%s", temp);
-            row.push_back(temp);
+        while (getline(ss, token, ',')) {
+            strHeaders.push_back(token);
         }
-        dataset.push_back(row);
+
+        while (getline(file, line)) {
+            stringstream ss(line);
+            vector<string> row;
+
+            while (getline(ss, token, ',')) {
+                row.push_back(token);
+            }
+
+            dataset.push_back(row);
+        }
     }
+
+    else{
+        cerr<< "Error reading file." << endl;
+    }
+
+    file.close();
 }

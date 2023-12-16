@@ -20,11 +20,6 @@ int main()
     startTheProgram();
 }
 
-void learn_about_the_program()
-{
-
-}
-
 void introductoryInterface()
 {
     cout << "--------------------------------------------------------------------------------------------" << endl;
@@ -56,6 +51,7 @@ void startTheProgram()
         readTextFile(str_dataset, header);
         int rows= str_dataset.size();
         int columns= str_dataset[0].size();
+        cout << rows << " " << columns << " " << endl;
         NaiveBayesTextModule(rows, columns, str_dataset, header);
         return;
     }
